@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PracticaMovimiento"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="597.469" Width="1062.167">
     <Canvas Name="miCanvas" KeyDown="miCanvas_KeyDown" Focusable="True">
-        <Image Name="carrito" Source="spark-gt-cotizador.png" Canvas.Left="219" Canvas.Top="90"></Image>
-        <Image  Source="giphy.gif" Canvas.Left="333" Canvas.Top="300"></Image>
+        <Image Name="carrito" Source="spark-gt-cotizador.png" Canvas.Left="395" Canvas.Top="467" Height="99" Width="172"></Image>
+        <Image Name="ranita" Source="rana.png " Height="104" Width="163" Canvas.Left="881" Canvas.Top="250"></Image>
     </Canvas>
 </Window>

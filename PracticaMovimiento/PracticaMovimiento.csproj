@@ -94,6 +94,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="rana.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="spark-gt-cotizador.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
