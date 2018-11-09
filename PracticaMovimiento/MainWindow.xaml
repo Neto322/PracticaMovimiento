@@ -6,8 +6,18 @@
         xmlns:local="clr-namespace:PracticaMovimiento"
         mc:Ignorable="d"
         Title="MainWindow" Height="597.469" Width="1062.167">
-    <Canvas Name="miCanvas" KeyDown="miCanvas_KeyDown" Focusable="True">
+    <Canvas>
+        <Canvas Name="miCanvas" KeyDown="miCanvas_KeyDown" Focusable="True">
+       
+        <TextBlock Text="No hay interseccion en X" Canvas.Left="10" Canvas.Top="10" Height="40" Width="276" FontSize="24" Name="lblX"></TextBlock>
+        <TextBlock Text="No hay interseccion en Y" Canvas.Left="10" Canvas.Top="50" Height="40" Width="276" FontSize="24" Name="lblY"></TextBlock>
+        <TextBlock Text="No hay colision" Canvas.Left="10" Canvas.Top="90" Height="40" Width="276" FontSize="24" Name="lblCol"></TextBlock>
         <Image Name="carrito" Source="spark-gt-cotizador.png" Canvas.Left="395" Canvas.Top="467" Height="99" Width="172"></Image>
         <Image Name="ranita" Source="rana.png " Height="104" Width="163" Canvas.Left="881" Canvas.Top="250"></Image>
+  
     </Canvas>
+    <Canvas Name="GameOver" Visibility="Collapsed">
+        <TextBlock Text="YOU DEAD BOI" Foreground="#FFFF0B0B" FontSize="72" Canvas.Left="228" Canvas.Top="236" Height="205" Width="486"></TextBlock>
+    </Canvas>
+   </Canvas>
 </Window>
