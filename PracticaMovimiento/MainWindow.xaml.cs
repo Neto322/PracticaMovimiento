@@ -26,7 +26,9 @@ namespace PracticaMovimiento
         TimeSpan tiempoAnterior;
         enum EstadoJuego { Gameplay,Gameover};
         EstadoJuego estadoActual = EstadoJuego.Gameplay;
-
+        enum Dirrecion { Arriba,Abajo,Izquierda,Derecha,Ninguna}
+        Dirrecion DirreccionJugador = Dirrecion.Ninguna;
+        double velocidadCarrito = 100;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,15 +45,47 @@ namespace PracticaMovimiento
             threadMoverEnemigos.Start();
 
         }
-        void Actualizar()
+        public void moverJugador(TimeSpan deltatime)
+        {
+            double carritoarriba = Canvas.GetTop(carrito);
+            double carritoderecha = Canvas.GetLeft(carrito);
+            switch (DirreccionJugador)
+            {
+                case Dirrecion.Arriba:
+                    Canvas.SetTop(carrito, carritoarriba - (velocidadCarrito * deltatime.TotalSeconds));
+                break;
+                case Dirrecion.Abajo:
+                    Canvas.SetTop(carrito, carritoarriba + (velocidadCarrito * deltatime.TotalSeconds ));
+                    break;
+                case Dirrecion.Izquierda:
+                    double nuevaPosicion = carritoderecha - (velocidadCarrito * deltatime.TotalSeconds);
+                    if (nuevaPosicion + carrito.Width >= 0)
+                    {
+                        Canvas.SetLeft(carrito, nuevaPosicion);
+                    }
+                    break;
+                case Dirrecion.Derecha:
+                    double nuevaPosicion2 = carritoderecha + (velocidadCarrito * deltatime.TotalSeconds);
+                    if (nuevaPosicion2 + carrito.Width <= 1062.167)
+                    {
+                        Canvas.SetLeft(carrito, nuevaPosicion2 );
+                    }
+                    break;
+            }
+                
+        }
+        public void Actualizar()
         {
             while (true)
             {
                 Dispatcher.Invoke(
                 () =>
                 {
+                    double carritoarriba = Canvas.GetTop(carrito);
+                    double carritoderecha = Canvas.GetLeft(carrito);
                     var TiempoActual = stopwatch.Elapsed;
                     var DeltaTime = TiempoActual - tiempoAnterior;
+                    moverJugador(DeltaTime);
                     if (estadoActual == EstadoJuego.Gameplay)
                     {
                         double leftCarroActual = Canvas.GetLeft(ranita);
@@ -106,25 +140,41 @@ namespace PracticaMovimiento
         {
             if (e.Key == Key.Right)
             {
-                double carritoderecha = Canvas.GetLeft(carrito);
-                Canvas.SetLeft(carrito, carritoderecha + 50);
+                DirreccionJugador = Dirrecion.Derecha;
             }
 
             if (e.Key == Key.Left)
             {
-                double carritoderecha = Canvas.GetLeft(carrito);
-                Canvas.SetLeft(carrito, carritoderecha - 50);
+                DirreccionJugador = Dirrecion.Izquierda;
             }
 
             if (e.Key == Key.Up)
             {
-                double carritoarriba = Canvas.GetTop(carrito);
-                Canvas.SetTop(carrito, carritoarriba - 50);
+                DirreccionJugador = Dirrecion.Arriba;
             }
             if (e.Key == Key.Down)
             {
-                double carritoarriba = Canvas.GetTop(carrito);
-                Canvas.SetTop(carrito, carritoarriba + 50);
+                DirreccionJugador = Dirrecion.Abajo;
+            }
+        }
+
+        private void miCanvas_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Up && DirreccionJugador == Dirrecion.Arriba)
+            {
+                DirreccionJugador = Dirrecion.Ninguna;
+            }
+            if (e.Key == Key.Down && DirreccionJugador == Dirrecion.Abajo)
+            {
+                DirreccionJugador = Dirrecion.Ninguna;
+            }
+            if (e.Key == Key.Left && DirreccionJugador == Dirrecion.Izquierda)
+            {
+                DirreccionJugador = Dirrecion.Ninguna;
+            }
+            if (e.Key == Key.Right && DirreccionJugador == Dirrecion.Derecha)
+            {
+                DirreccionJugador = Dirrecion.Ninguna;
             }
         }
     }
